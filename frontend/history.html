@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AdminOps - History & Reports</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter',sans-serif;
+}
+
+body{
+    background:#f4f6fb;
+    display:flex;
+    color:#1f2937;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+    width:240px;
+    height:100vh;
+    background:#1e2a78;
+    color:white;
+    padding:25px 20px;
+    position:fixed;
+}
+
+.sidebar h2{
+    font-size:20px;
+    margin-bottom:40px;
+    display:flex;
+    align-items:center;
+}
+
+.sidebar h2 span{
+    margin-right:10px;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar ul li{
+    padding:12px 15px;
+    border-radius:8px;
+    margin-bottom:10px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.sidebar ul li:hover,
+.sidebar ul li.active{
+    background:#2f3ea6;
+}
+
+/* ===== MAIN CONTENT ===== */
+.main{
+    margin-left:240px;
+    flex:1;
+    padding:30px 40px;
+}
+
+/* HEADER */
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+.topbar input{
+    padding:10px 15px;
+    width:250px;
+    border-radius:8px;
+    border:1px solid #d1d5db;
+}
+
+/* TITLE */
+.title h1{
+    font-size:28px;
+    font-weight:700;
+}
+
+.title p{
+    color:#6b7280;
+    margin-top:5px;
+}
+
+/* FILTERS */
+.filters{
+    margin-top:20px;
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    border:1px solid #e5e7eb;
+    display:flex;
+    gap:15px;
+}
+
+.filters input,
+.filters select{
+    padding:10px;
+    border-radius:8px;
+    border:1px solid #d1d5db;
+}
+
+/* LAYOUT GRID */
+.content{
+    display:flex;
+    gap:25px;
+    margin-top:25px;
+}
+
+/* TABLE SECTION */
+.table-section{
+    flex:3;
+    background:white;
+    border-radius:12px;
+    border:1px solid #e5e7eb;
+    overflow:hidden;
+}
+
+.table-header{
+    padding:20px;
+    font-weight:600;
+    border-bottom:1px solid #e5e7eb;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th, td{
+    padding:14px 20px;
+    font-size:14px;
+}
+
+thead{
+    background:#f9fafb;
+}
+
+tbody tr{
+    border-top:1px solid #f0f0f0;
+}
+
+.status{
+    padding:5px 12px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:600;
+}
+
+.completed{background:#dcfce7;color:#166534;}
+.progress{background:#dbeafe;color:#1e40af;}
+.flagged{background:#fee2e2;color:#991b1b;}
+
+/* PAGINATION */
+.pagination{
+    padding:15px 20px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-top:1px solid #e5e7eb;
+}
+
+/* RIGHT PANEL */
+.right-panel{
+    flex:1.2;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+.insights{
+    background:#1e3a8a;
+    color:white;
+    padding:20px;
+    border-radius:12px;
+}
+
+.insights h3{
+    margin-bottom:15px;
+}
+
+.insight-card{
+    background:rgba(255,255,255,0.1);
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:12px;
+    font-size:14px;
+}
+
+.quick-links{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    border:1px solid #e5e7eb;
+}
+
+.quick-links h3{
+    margin-bottom:10px;
+}
+
+.quick-links a{
+    display:block;
+    text-decoration:none;
+    color:#374151;
+    padding:8px 0;
+}
+
+/* BOTTOM CARDS */
+.bottom-cards{
+    display:flex;
+    gap:20px;
+    margin-top:30px;
+}
+
+.card{
+    flex:1;
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    border:1px solid #e5e7eb;
+}
+
+.card h4{
+    font-size:14px;
+    color:#6b7280;
+}
+
+.card .value{
+    font-size:26px;
+    font-weight:700;
+    margin-top:8px;
+}
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2><span>🎓</span>Placement Admin</h2>
+    <ul>
+        <li onclick="navigateTo('dashboard.html', this)">Dashboard</li>
+        <li onclick="navigateTo('activity.html', this)">Activities</li>
+        <li class="active" onclick="navigateTo('history.html', this)">History</li>
+        <li onclick="navigateTo('profile.html', this)">Profile</li>
+    </ul>
+</div>
+
+<script>
+function navigateTo(page, element) {
+    document.querySelectorAll('.sidebar ul li').forEach(li => {
+        li.classList.remove('active');
+    });
+    element.classList.add('active');
+    window.location.href = page;
+}
+</script>
+
+<!-- MAIN -->
+<div class="main">
+
+    <div class="topbar">
+        <div class="title">
+            <h1>Activity History & Reporting</h1>
+            <p>Audit interaction logs and analyze department performance trends.</p>
+        </div>
+        <input type="text" id="search" placeholder="Search history...">
+    </div>
+
+    <div class="filters">
+        <input type="date" id="fromDate">
+        <input type="date" id="toDate">
+        <select id="departmentFilter"><option value="">All Departments</option></select>
+        <select id="statusFilter"><option value="">Any Status</option></select>
+    </div>
+
+    <div class="content">
+
+        <!-- TABLE -->
+        <div class="table-section">
+            <div class="table-header">Historical Activity Logs</div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student</th>
+                        <th>Department</th>
+                        <th>Activity</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+
+            <div class="pagination">
+                <div id="entryInfo"></div>
+                <div>
+                    <button onclick="prevPage()">Prev</button>
+                    <button onclick="nextPage()">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL -->
+        <div class="right-panel">
+
+            <div class="insights">
+                <h3>Automated Insights</h3>
+                <div class="insight-card" id="topDept"></div>
+                <div class="insight-card" id="flagCount"></div>
+                <div class="insight-card" id="completionRate"></div>
+            </div>
+
+            <div class="quick-links">
+                <h3>Quick Links</h3>
+                <a href="#">Review Pending Items →</a>
+                <a href="#">Manage Student Access →</a>
+                <a href="#">Generate Reports →</a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- BOTTOM CARDS -->
+    <div class="bottom-cards">
+        <div class="card">
+            <h4>Total Logs</h4>
+            <div class="value" id="totalLogs">0</div>
+        </div>
+
+        <div class="card">
+            <h4>Completed</h4>
+            <div class="value" id="completedCount">0</div>
+        </div>
+
+        <div class="card">
+            <h4>Flagged</h4>
+            <div class="value" id="flaggedCount">0</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+let data=[];
+let currentPage=1;
+const rowsPerPage=5;
+
+fetch('../backend/data.json')
+.then(res=>res.json())
+.then(json=>{
+    data=json.history;
+    populateFilters();
+    renderTable();
+    updateCards();
+    generateInsights();
+});
+
+function populateFilters(){
+    const depts=[...new Set(data.map(d=>d.department))];
+    const statuses=[...new Set(data.map(d=>d.status))];
+
+    depts.forEach(d=>{
+        departmentFilter.innerHTML+=`<option value="${d}">${d}</option>`;
+    });
+
+    statuses.forEach(s=>{
+        statusFilter.innerHTML+=`<option value="${s}">${s}</option>`;
+    });
+}
+
+function renderTable(){
+    const searchVal=search.value.toLowerCase();
+    const deptVal=departmentFilter.value;
+    const statusVal=statusFilter.value;
+
+    let filtered=data.filter(d=>
+        d.student.toLowerCase().includes(searchVal) &&
+        (deptVal===""||d.department===deptVal) &&
+        (statusVal===""||d.status===statusVal)
+    );
+
+    const start=(currentPage-1)*rowsPerPage;
+    const paginated=filtered.slice(start,start+rowsPerPage);
+
+    tableBody.innerHTML="";
+
+    paginated.forEach(d=>{
+        tableBody.innerHTML+=`
+        <tr>
+            <td>${d.id}</td>
+            <td>${d.student}</td>
+            <td>${d.department}</td>
+            <td>${d.activity}</td>
+            <td>${d.date}</td>
+            <td><span class="status ${d.status.toLowerCase()}">${d.status}</span></td>
+        </tr>`;
+    });
+
+    entryInfo.innerText=`Showing ${start+1} to ${Math.min(start+rowsPerPage,filtered.length)} of ${filtered.length} entries`;
+}
+
+function updateCards(){
+    totalLogs.innerText=data.length;
+    completedCount.innerText=data.filter(d=>d.status==="Completed").length;
+    flaggedCount.innerText=data.filter(d=>d.status==="Flagged").length;
+}
+
+function generateInsights(){
+    const deptCount={};
+    data.forEach(d=>{
+        deptCount[d.department]=(deptCount[d.department]||0)+1;
+    });
+
+    const top=Object.keys(deptCount).reduce((a,b)=>deptCount[a]>deptCount[b]?a:b);
+    topDept.innerText="Top Activity Dept: "+top;
+
+    flagCount.innerText="Flagged Records: "+data.filter(d=>d.status==="Flagged").length;
+
+    const completed=data.filter(d=>d.status==="Completed").length;
+    completionRate.innerText="Completion Rate: "+((completed/data.length)*100).toFixed(1)+"%";
+}
+
+function nextPage(){currentPage++;renderTable();}
+function prevPage(){if(currentPage>1)currentPage--;renderTable();}
+
+search.addEventListener('input',renderTable);
+departmentFilter.addEventListener('change',renderTable);
+statusFilter.addEventListener('change',renderTable);
+</script>
+
+</body>
+</html>

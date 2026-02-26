@@ -1,0 +1,166 @@
+{
+  "users": [
+    {
+      "email": "student@college.com",
+      "password": "1234",
+      "name": "John",
+      "department": "Computer Science",
+      "cgpa": 8.5
+    }
+  ],
+  "dashboard": {
+    "total_students": 1240,
+    "eligible_students": 856,
+    "mock_interviews": 342,
+    "upcoming_drives": 12
+  },
+  "activities": [
+    {
+      "id": "ACT001",
+      "student_name": "John ",
+      "dept": "Computer Science",
+      "activity": "Technical Workshop",
+      "date": "2024-05-15",
+      "status": "Attended"
+    },
+    {
+      "id": "ACT002",
+      "student_name": "Emily",
+      "dept": "Information Technology",
+      "activity": "Mock Interview",
+      "date": "2024-05-16",
+      "status": "Pending"
+    },
+    {
+      "id": "ACT003",
+      "student_name": "Michael ",
+      "dept": "Computer Science",
+      "activity": "Coding Contest",
+      "date": "2024-05-17",
+      "status": "Completed"
+    },
+    {
+      "id": "ACT004",
+      "student_name": "Sarah ",
+      "dept": "Electronics",
+      "activity": "Resume Review",
+      "date": "2024-05-18",
+      "status": "In Progress"
+    },
+    {
+      "id": "ACT005",
+      "student_name": "David ",
+      "dept": "Mechanical Engineering",
+      "activity": "Group Discussion",
+      "date": "2024-05-19",
+      "status": "Completed"
+    },
+    {
+      "id": "ACT006",
+      "student_name": "Lisa ",
+      "dept": "Computer Science",
+      "activity": "APTITUDE Training",
+      "date": "2024-05-20",
+      "status": "Attended"
+    },
+    {
+      "id": "ACT007",
+      "student_name": "Robert ",
+      "dept": "Civil Engineering",
+      "activity": "Industry Visit",
+      "date": "2024-05-21",
+      "status": "Pending"
+    },
+    {
+      "id": "ACT008",
+      "student_name": " Lee",
+      "dept": "Information Technology",
+      "activity": "Technical Interview",
+      "date": "2024-05-22",
+      "status": "Completed"
+    }
+  ],
+  "history": [
+    {
+      "id": "ACT1001",
+      "student": "Rahul ",
+      "department": "Engineering",
+      "activity": "Security Workshop",
+      "date": "2024-05-12",
+      "status": "Completed"
+    },
+    {
+      "id": "ACT1002",
+      "student": "Anita ",
+      "department": "Marketing",
+      "activity": "Compliance Training",
+      "date": "2024-05-13",
+      "status": "Progress"
+    },
+    {
+      "id": "ACT1003",
+      "student": "Vikram ",
+      "department": "HR",
+      "activity": "Onboarding",
+      "date": "2024-05-14",
+      "status": "Flagged"
+    },
+    {
+      "id": "ACT1004",
+      "student": "Sneha ",
+      "department": "Engineering",
+      "activity": "API Documentation",
+      "date": "2024-05-15",
+      "status": "Completed"
+    },
+    {
+      "id": "ACT1005",
+      "student": "Karan ",
+      "department": "Legal",
+      "activity": "Policy Review",
+      "date": "2024-05-16",
+      "status": "Completed"
+    }
+  ],
+  "profile": {
+    "personal": {
+      "fullName": " John",
+      "email": "alex.j@university.edu",
+      "phone": "+1 555 000 0000",
+      "linkedin": "linkedin.com/in/alexjohnson"
+    },
+    "academic": {
+      "department": "Computer Science",
+      "cgpa": "8.7",
+      "backlogs": "0",
+      "gradYear": "2024"
+    },
+    "skills": [
+      "Python",
+      "React",
+      "PostgreSQL",
+      "Data Structures"
+    ],
+    "profileStrength": 70,
+    "applications": [
+      {
+        "company": "Google",
+        "role": "SDE Intern",
+        "status": "Interview",
+        "date": "2024-05-12"
+      },
+      {
+        "company": "Amazon",
+        "role": "Backend Intern",
+        "status": "Applied",
+        "date": "2024-05-15"
+      },
+      {
+        "company": "Microsoft",
+        "role": "Cloud Engineer",
+        "status": "Offer",
+        "date": "2024-05-18"
+      }
+    ]
+  }
+}

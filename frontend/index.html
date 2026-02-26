@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campus Placement Portal</title>
+
+<style>
+/* ========== GLOBAL ========== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    background:#f4f6fb;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+/* ========== CARD ========== */
+.login-card{
+    width:420px;
+    background:#ffffff;
+    border-radius:16px;
+    padding:40px 35px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.08);
+    text-align:center;
+}
+
+/* Logo */
+.logo{
+    width:60px;
+    height:60px;
+    background:#eef1ff;
+    border-radius:14px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:0 auto 20px auto;
+    font-size:28px;
+    color:#3b4cc0;
+}
+
+/* Title */
+h1{
+    font-size:22px;
+    font-weight:600;
+    margin-bottom:5px;
+}
+
+.subtitle{
+    font-size:13px;
+    color:#777;
+    margin-bottom:25px;
+}
+
+/* Toggle */
+.toggle{
+    display:flex;
+    background:#eef1f7;
+    border-radius:10px;
+    margin-bottom:25px;
+    overflow:hidden;
+}
+
+.toggle button{
+    flex:1;
+    padding:10px;
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    font-weight:500;
+    color:#555;
+}
+
+.toggle button.active{
+    background:white;
+    color:#3b4cc0;
+    box-shadow:0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Input Group */
+.input-group{
+    text-align:left;
+    margin-bottom:18px;
+}
+
+.input-group label{
+    font-size:13px;
+    font-weight:500;
+    margin-bottom:6px;
+    display:block;
+}
+
+.input-box{
+    position:relative;
+}
+
+.input-box input{
+    width:100%;
+    padding:12px 40px 12px 12px;
+    border:1px solid #ddd;
+    border-radius:8px;
+    font-size:14px;
+    outline:none;
+}
+
+.input-box input:focus{
+    border-color:#3b4cc0;
+}
+
+/* Eye Icon */
+.eye{
+    position:absolute;
+    right:12px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+    font-size:14px;
+    color:#777;
+}
+
+/* Forgot */
+.forgot{
+    text-align:right;
+    font-size:12px;
+    margin-top:-10px;
+    margin-bottom:20px;
+}
+
+.forgot a{
+    text-decoration:none;
+    color:#3b4cc0;
+}
+
+/* Button */
+.login-btn{
+    width:100%;
+    padding:14px;
+    background:#2f3e9e;
+    color:white;
+    border:none;
+    border-radius:10px;
+    font-size:15px;
+    font-weight:500;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.login-btn:hover{
+    background:#25348a;
+}
+
+/* Footer */
+.footer{
+    position:absolute;
+    bottom:20px;
+    font-size:12px;
+    color:#888;
+}
+</style>
+
+</head>
+<body>
+
+<div class="login-card">
+
+    <div class="logo">🎓</div>
+
+    <h1>Campus Placement Portal</h1>
+    <div class="subtitle">ABC College of Engineering</div>
+
+    <!-- Toggle -->
+    <div class="toggle">
+        <button class="active" onclick="setRole('student', this)">Student</button>
+        <button onclick="setRole('admin', this)">Admin</button>
+    </div>
+
+    <!-- Email -->
+    <div class="input-group">
+        <label>Email Address</label>
+        <div class="input-box">
+            <input type="email" id="email" placeholder="Enter your college email">
+        </div>
+    </div>
+
+    <!-- Password -->
+    <div class="input-group">
+        <label>Password</label>
+        <div class="input-box">
+            <input type="password" id="password" placeholder="Enter password">
+            <span class="eye" onclick="togglePassword()">👁</span>
+        </div>
+    </div>
+
+    <div class="forgot">
+        <a href="#">Forgot Password?</a>
+    </div>
+
+    <!-- Login Button -->
+    <button class="login-btn" onclick="login()">Login to Dashboard</button>
+
+</div>
+
+<div class="footer">
+    © 2024 ABC College of Engineering | Training & Placement Cell
+</div>
+
+<script>
+
+/* ========== ROLE TOGGLE ========== */
+let role = "student";
+
+function setRole(selectedRole, btn){
+    role = selectedRole;
+
+    document.querySelectorAll(".toggle button")
+        .forEach(b => b.classList.remove("active"));
+
+    btn.classList.add("active");
+}
+
+/* ========== PASSWORD TOGGLE ========== */
+function togglePassword(){
+    const password = document.getElementById("password");
+    password.type = password.type === "password" ? "text" : "password";
+}
+
+/* ========== LOGIN FUNCTION ========== */
+async function login(){
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+
+    // Basic Validation
+    if(email === "" || password === ""){
+        alert("Please enter email and password");
+        return;
+    }
+
+    try {
+        // Fetch users from local data.json
+        const response = await fetch("../backend/data.json");
+        const data = await response.json();
+        
+        // Check credentials against stored users
+        const user = data.users.find(u => u.email === email && u.password === password);
+
+        if(user){
+            // Save login state
+            localStorage.setItem("userRole", role);
+            localStorage.setItem("userEmail", email);
+            localStorage.setItem("userName", user.name);
+
+            // Navigate to dashboard
+            window.location.href = "dashboard.html";
+        }
+        else{
+            alert("Invalid credentials. Try: student@college.com / 1234");
+        }
+    } catch (error) {
+        console.error("Login error:", error);
+        alert("Unable to load data. Please try again.");
+    }
+}
+
+</script>
+
+</body>
+</html>
